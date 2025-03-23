@@ -1,16 +1,18 @@
-function uploadPDF() {
-    const fileInput = document.getElementById('pdfUpload');
-    const statusText = document.getElementById('status');
-    
-    if (fileInput.files.length === 0) {
-        statusText.innerText = 'Please select a PDF file.';
-        return;
-    }
-    
-    const file = fileInput.files[0];
-    statusText.innerText = `Uploading: ${file.name}...`;
-    
-    setTimeout(() => {
-        statusText.innerText = 'Upload successful!';
-    }, 2000);
-}
+document.addEventListener("DOMContentLoaded", function () {
+    const fileInput = document.getElementById("pdfInput");
+    const uploadButton = document.getElementById("uploadButton");
+
+    uploadButton.addEventListener("click", function () {
+        if (fileInput.files.length === 0) {
+            alert("Please select a PDF file to upload.");
+            return;
+        }
+
+        const file = fileInput.files[0];
+        const formData = new FormData();
+        formData.append("pdfFile", file);
+
+        // Simulate a file upload process (replace this with actual backend integration)
+        alert(`File "${file.name}" uploaded successfully!`);
+    });
+});
