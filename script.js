@@ -1,49 +1,47 @@
-document.getElementById("splitButton").addEventListener("click", async function () {
-    const fileInput = document.getElementById("pdfFile");
-    if (fileInput.files.length === 0) {
-        alert("Please upload a PDF file.");
+document.getElementById('splitButton').addEventListener('click', async () => {
+    const fileInput = document.getElementById('pdfInput');
+    const startPage = parseInt(document.getElementById('startPage').value);
+    const endPage = parseInt(document.getElementById('endPage').value);
+
+    if (!fileInput.files.length) {
+        alert("Please select a PDF file.");
         return;
     }
 
     const file = fileInput.files[0];
     const reader = new FileReader();
+    
+    reader.onload = async function (event) {
+        const uint8Array = new Uint8Array(event.target.result);
 
-    reader.onload = async function () {
-        const pdfData = new Uint8Array(reader.result);
-        const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
+        // Use pdf.js to load the PDF document
+        const pdf = await pdfjsLib.getDocument({ data: uint8Array }).promise;
+        const totalPages = pdf.numPages;
 
-        const splitType = document.getElementById("splitType").value;
-        let pagesToExtract = [];
-
-        if (splitType === "range") {
-            const rangeInput = document.getElementById("rangeInput").value;
-            const [start, end] = rangeInput.split("-").map(Number);
-            for (let i = start; i <= end; i++) pagesToExtract.push(i);
-        } else if (splitType === "specific") {
-            pagesToExtract = document.getElementById("specificPages").value.split(",").map(Number);
-        } else if (splitType === "interval") {
-            const interval = parseInt(document.getElementById("intervalInput").value);
-            for (let i = 1; i <= pdf.numPages; i += interval) {
-                pagesToExtract.push(i);
-            }
-        }
-
-        if (pagesToExtract.length === 0) {
-            alert("Invalid input. Please check your split options.");
+        if (startPage < 1 || endPage > totalPages || startPage > endPage) {
+            alert("Invalid page range.");
             return;
         }
 
-        const { PDFDocument } = PDFLib;
-        const newPdfDoc = await PDFDocument.create();
-        const copiedPages = await newPdfDoc.copyPages(pdf, pagesToExtract.map(p => p - 1));
-        copiedPages.forEach(page => newPdfDoc.addPage(page));
+        const pdfDoc = await PDFLib.PDFDocument.create();
+        
+        // Copy the selected pages from the source PDF
+        for (let i = startPage; i <= endPage; i++) {
+            const [copiedPage] = await pdfDoc.copyPages(pdf, [i - 1]);
+            pdfDoc.addPage(copiedPage);
+        }
 
-        const newPdfBytes = await newPdfDoc.save();
-        const blob = new Blob([newPdfBytes], { type: "application/pdf" });
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = "split_document.pdf";
-        link.click();
+        // Save the new PDF document
+        const pdfBytes = await pdfDoc.save();
+        const blob = new Blob([pdfBytes], { type: "application/pdf" });
+
+        // Create download link
+        const downloadLink = document.getElementById("downloadLink");
+        downloadLink.href = URL.createObjectURL(blob);
+        downloadLink.download = "split_pdf.pdf";
+        downloadLink.style.display = "block";
+        downloadLink.textContent = "Download Split PDF";
     };
+
     reader.readAsArrayBuffer(file);
 });
