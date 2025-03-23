@@ -8,23 +8,45 @@
 </head>
 <body>
     <header>
-        <h1>ZeroPDF - Free Online PDF Tools</h1>
+        <h1>ZeroPDF</h1>
+        <p>Your all-in-one free PDF tool</p>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Features</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
     </header>
-    <div class="container">
-        <div class="upload-section">
-            <input type="file" id="pdfInput" accept="application/pdf">
-        </div>
-        <div class="buttons">
-            <button id="splitButton">Split PDF</button>
-            <button id="mergeButton">Merge PDFs</button>
-            <button id="convertExcelButton">Convert to Excel</button>
-            <button id="convertWordButton">Convert to Word</button>
-        </div>
-        <p id="statusMessage"></p>
+    
+    <div class="hero">
+        <h2>Convert, Edit, and Manage Your PDFs Easily</h2>
+        <p>Fast and free PDF tools for everyone</p>
     </div>
+    
+    <div class="container">
+        <h2>Upload your PDF file</h2>
+        <input type="file" id="pdfUpload" accept="application/pdf">
+        
+        <div class="buttons">
+            <button onclick="splitPDF()">Split PDF</button>
+            <button onclick="mergePDF()">Merge PDF</button>
+            <button onclick="convertToWord()">PDF to Word</button>
+            <button onclick="convertToExcel()">PDF to Excel</button>
+            <button onclick="compressPDF()">Compress PDF</button>
+            <button onclick="rotatePDF()">Rotate PDF</button>
+            <button onclick="unlockPDF()">Unlock PDF</button>
+            <button onclick="protectPDF()">Protect PDF</button>
+        </div>
+        
+        <div id="output"></div>
+    </div>
+
     <footer>
         <p>&copy; 2025 ZeroPDF. All rights reserved.</p>
     </footer>
+    
     <script src="script.js"></script>
 </body>
 </html>
