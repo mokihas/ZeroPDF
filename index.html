@@ -3,43 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZeroPDF - PDF Tools</title>
-    <link rel="stylesheet" href="style.css">
-    <script defer src="script.js"></script>
-    <script type="module">
-        // Initialize Supabase Client
-        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
-        const supabaseUrl = "https://iqearuedtjsmgbuihiuh.supabase.co";
-        const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlxZWFydWVkdGpzbWdidWloaXVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI3MTQzNjAsImV4cCI6MjA1ODI5MDM2MH0.mT4Tuu8jIo16QDEx6xI0sE7RVgED3dlCsToJacCY6HU";
-        const supabase = createClient(supabaseUrl, supabaseKey);
-
-        window.supabase = supabase;
-    </script>
+    <title>ZeroPDF - Upload & Download PDFs</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            color: #333;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+            padding: 10px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>ZeroPDF - Free PDF Tools</h1>
-        <nav>
-            <ul>
-                <li><a href="#">Split PDF</a></li>
-                <li><a href="#">Merge PDF</a></li>
-                <li><a href="#">Convert PDF</a></li>
-                <li><a href="#">Compress PDF</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <main>
-        <section class="upload-section">
-            <h2>Upload Your PDF File</h2>
-            <input type="file" id="pdfFile" accept="application/pdf">
-            <button id="uploadBtn">Upload</button>
-            <p id="uploadStatus"></p>
-        </section>
-    </main>
+    <h1>Upload & Download PDF Files</h1>
+    <input type="file" id="fileInput">
+    <button id="uploadButton">Upload PDF</button>
 
-    <footer>
-        <p>&copy; 2025 ZeroPDF. All rights reserved.</p>
-    </footer>
+    <h2>Available Files</h2>
+    <ul id="fileList"></ul>
+
+    <script>
+        // Initialize Supabase
+        const SUPABASE_URL = "https://iqearuedtjsmgbuihiuh.supabase.co";
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlxZWFydWVkdGpzbWdidWloaXVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI3MTQzNjAsImV4cCI6MjA1ODI5MDM2MH0.mT4Tuu8jIo16QDEx6xI0sE7RVgED3dlCsToJacCY6HU";
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Select elements from the DOM
+        const fileInput = document.getElementById("fileInput");
+        const uploadButton = document.getElementById("uploadButton");
+        const fileList = document.getElementById("fileList");
+
+        // Upload PDF to Supabase Storage
+        async function uploadPDF() {
+            const file = fileInput.files[0];
+            if (!file) {
+                alert("Please select a file to upload.");
+                return;
+            }
+
+            const fileName = `${Date.now()}_${file.name}`;
+            const { data, error } = await supabase.storage.from("pdf-files").upload(fileName, file);
+
+            if (error) {
+                console.error("Upload failed:", error.message);
+                alert("Error uploading file. Please try again.");
+            } else {
+                alert("File uploaded successfully!");
+                fetchFileList(); // Refresh file list
+            }
+        }
+
+        // Fetch List of Files in Storage
+        async function fetchFileList() {
+            const { data, error } = await supabase.storage.from("pdf-files").list();
+            
+            if (error) {
+                console.error("Error fetching files:", error.message);
+                return;
+            }
+
+            fileList.innerHTML = ""; // Clear previous list
+            data.forEach(file => {
+                const listItem = document.createElement("li");
+                listItem.innerHTML = `
+                    ${file.name} 
+                    <button onclick="downloadPDF('${file.name}')">Download</button>
+                `;
+                fileList.appendChild(listItem);
+            });
+        }
+
+        // Download PDF from Supabase Storage
+        async function downloadPDF(fileName) {
+            const { data, error } = await supabase.storage.from("pdf-files").getPublicUrl(fileName);
+            
+            if (error) {
+                console.error("Error getting file URL:", error.message);
+                alert("Error downloading file.");
+            } else {
+                window.open(data.publicUrl, "_blank");
+            }
+        }
+
+        // Event Listener for Upload Button
+        uploadButton.addEventListener("click", uploadPDF);
+
+        // Fetch files on page load
+        fetchFileList();
+    </script>
+
 </body>
 </html>
