@@ -8,33 +8,16 @@
 </head>
 <body>
     <header>
-        <h1>ZeroPDF</h1>
-        <p>Your Free Online PDF Toolkit</p>
+        <h1>ZeroPDF - Free Online PDF Tools</h1>
     </header>
-    <main>
-        <section class="upload-section">
-            <h2>Upload Your PDF</h2>
-            <input type="file" id="pdfUpload" accept="application/pdf">
-            <button onclick="handleFileUpload()">Upload</button>
-        </section>
-        <section class="tools-section">
-            <h2>Choose a Tool</h2>
-            <div class="tool-buttons">
-                <button onclick="splitPDF()">Split PDF</button>
-                <button onclick="mergePDF()">Merge PDFs</button>
-                <button onclick="convertToWord()">PDF to Word</button>
-                <button onclick="convertToExcel()">PDF to Excel</button>
-                <button onclick="compressPDF()">Compress PDF</button>
-                <button onclick="extractText()">Extract Text</button>
-                <button onclick="rotatePDF()">Rotate PDF</button>
-                <button onclick="encryptPDF()">Encrypt PDF</button>
-                <button onclick="decryptPDF()">Decrypt PDF</button>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2025 ZeroPDF. All rights reserved.</p>
-    </footer>
+    <div class="container">
+        <input type="file" id="pdfInput" accept="application/pdf">
+        <button id="splitButton">Split PDF</button>
+        <button id="mergeButton">Merge PDFs</button>
+        <button id="convertExcelButton">Convert to Excel</button>
+        <button id="convertWordButton">Convert to Word</button>
+        <p id="statusMessage"></p>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
