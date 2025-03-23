@@ -3,50 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZeroPDF - Free PDF Tools</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>ZeroPDF - PDF Tools</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+    <script type="module">
+        // Initialize Supabase Client
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+        const supabaseUrl = "YOUR_SUPABASE_URL";
+        const supabaseKey = "YOUR_SUPABASE_ANON_KEY";
+        const supabase = createClient(supabaseUrl, supabaseKey);
+
+        window.supabase = supabase;
+    </script>
 </head>
 <body>
     <header>
-        <h1>ZeroPDF</h1>
-        <p>Your all-in-one free PDF tool</p>
+        <h1>ZeroPDF - Free PDF Tools</h1>
         <nav>
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Features</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="#">Split PDF</a></li>
+                <li><a href="#">Merge PDF</a></li>
+                <li><a href="#">Convert PDF</a></li>
+                <li><a href="#">Compress PDF</a></li>
             </ul>
         </nav>
     </header>
-    
-    <div class="hero">
-        <h2>Convert, Edit, and Manage Your PDFs Easily</h2>
-        <p>Fast and free PDF tools for everyone</p>
-    </div>
-    
-    <div class="container">
-        <h2>Upload your PDF file</h2>
-        <input type="file" id="pdfUpload" accept="application/pdf">
-        
-        <div class="buttons">
-            <button onclick="splitPDF()">Split PDF</button>
-            <button onclick="mergePDF()">Merge PDF</button>
-            <button onclick="convertToWord()">PDF to Word</button>
-            <button onclick="convertToExcel()">PDF to Excel</button>
-            <button onclick="compressPDF()">Compress PDF</button>
-            <button onclick="rotatePDF()">Rotate PDF</button>
-            <button onclick="unlockPDF()">Unlock PDF</button>
-            <button onclick="protectPDF()">Protect PDF</button>
-        </div>
-        
-        <div id="output"></div>
-    </div>
+
+    <main>
+        <section class="upload-section">
+            <h2>Upload Your PDF File</h2>
+            <input type="file" id="pdfFile" accept="application/pdf">
+            <button id="uploadBtn">Upload</button>
+            <p id="uploadStatus"></p>
+        </section>
+    </main>
 
     <footer>
         <p>&copy; 2025 ZeroPDF. All rights reserved.</p>
     </footer>
-    
-    <script src="script.js"></script>
 </body>
 </html>
