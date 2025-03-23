@@ -11,13 +11,20 @@
         <h1>ZeroPDF - Free Online PDF Tools</h1>
     </header>
     <div class="container">
-        <input type="file" id="pdfInput" accept="application/pdf">
-        <button id="splitButton">Split PDF</button>
-        <button id="mergeButton">Merge PDFs</button>
-        <button id="convertExcelButton">Convert to Excel</button>
-        <button id="convertWordButton">Convert to Word</button>
+        <div class="upload-section">
+            <input type="file" id="pdfInput" accept="application/pdf">
+        </div>
+        <div class="buttons">
+            <button id="splitButton">Split PDF</button>
+            <button id="mergeButton">Merge PDFs</button>
+            <button id="convertExcelButton">Convert to Excel</button>
+            <button id="convertWordButton">Convert to Word</button>
+        </div>
         <p id="statusMessage"></p>
     </div>
+    <footer>
+        <p>&copy; 2025 ZeroPDF. All rights reserved.</p>
+    </footer>
     <script src="script.js"></script>
 </body>
 </html>
