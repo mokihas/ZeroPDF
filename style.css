@@ -20,87 +20,105 @@ header {
   font-weight: bold;
 }
 
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 20px;
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
 }
 
-nav a {
+.hamburger .line {
+  width: 25px;
+  height: 3px;
+  background: white;
+  margin: 4px 0;
+}
+
+/* Navigation Links */
+.nav-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  position: relative;
+  margin: 0 15px;
+}
+
+.nav-links a {
   color: white;
   text-decoration: none;
-}
-
-.hero {
-  text-align: center;
-  padding: 100px 20px;
-}
-
-.cta-buttons button {
-  padding: 10px 20px;
   font-size: 16px;
-  background: #ff6f61;
-  border: none;
-  color: white;
-  cursor: pointer;
+}
+
+.nav-links a:hover {
+  color: #ff6f61;
+}
+
+/* Dropdown Menu */
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  list-style: none;
+  padding: 10px;
   border-radius: 5px;
+  z-index: 1;
 }
 
-.tools {
-  padding: 50px 20px;
-  text-align: center;
+.nav-links li:hover .dropdown {
+  display: block;
 }
 
-.tool-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
+.dropdown li {
+  margin: 10px 0;
 }
 
-.tool-card {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 20px;
-  border-radius: 10px;
-  transition: transform 0.3s ease;
+/* Login and Sign Up Buttons */
+.auth-buttons {
+  display: flex;
+  gap: 10px;
 }
 
-.tool-card:hover {
-  transform: translateY(-10px) scale(1.05);
+.btn {
+  padding: 10px 20px;
+  background: #ff6f61;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
-footer {
-  text-align: center;
-  padding: 20px;
-  background: rgba(0, 0, 0, 0.5);
+.btn:hover {
+  background: #e65a50;
 }
 
-/* About Section Styles */
-.about {
-  padding: 50px 20px;
-  background: rgba(255, 255, 255, 0.1);
-  margin: 20px;
-  border-radius: 10px;
-}
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
 
-.about h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-  color: #fff;
-}
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
+    padding: 10px;
+  }
 
-.about p {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #ddd;
-  margin-bottom: 15px;
-}
+  .nav-links.active {
+    display: flex;
+  }
 
-.about ul {
-  list-style-type: disc;
-  margin-left: 20px;
-  color: #ddd;
-}
-
-.about ul li {
-  margin-bottom: 10px;
+  .auth-buttons {
+    display: none;
+  }
 }
