@@ -1,30 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <meta name="robots" content="noindex, nofollow">
-  <meta name="description" content="Durable for your business">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <title>Transform Your PDFs Seamlessly with ZeroPDF</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ZeroPDF - Your PDF Solution">
+  <title>ZeroPDF</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="scripts.js" defer></script>
 </head>
 <body>
   <header>
     <div class="logo">ZeroPDF</div>
     <nav>
-  <ul>
-    <li><a href="#features">Features</a></li>
-    <li><a href="#tools">Tools</a></li>
-    <li><a href="about.html">About</a></li>
-  </ul>
-</nav>
+      <!-- Hamburger Icon -->
+      <div class="hamburger" id="hamburger">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+      </div>
+
+      <!-- Navigation Links -->
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li>
+          <a href="#">Language</a>
+          <ul class="dropdown">
+            <li><a href="#">English</a></li>
+            <li><a href="#">Spanish</a></li>
+            <li><a href="#">French</a></li>
+            <li><a href="#">German</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">Help</a>
+          <ul class="dropdown">
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Login and Sign Up Buttons -->
+      <div class="auth-buttons">
+        <a href="login.html" class="btn">Login</a>
+        <a href="signup.html" class="btn">Sign Up</a>
+      </div>
+    </nav>
   </header>
 
   <section class="hero">
@@ -35,30 +58,6 @@
       <input type="file" id="fileInput" accept=".pdf" style="display: none;">
     </div>
   </section>
-
-  <section id="tools" class="tools">
-    <h2>Tools</h2>
-    <div class="tool-grid">
-      <div class="tool-card" data-tool="split">
-        <h3>Split PDF</h3>
-        <p>Divide a PDF into multiple files.</p>
-      </div>
-      <div class="tool-card" data-tool="merge">
-        <h3>Merge PDF</h3>
-        <p>Combine multiple PDFs into one.</p>
-      </div>
-      <div class="tool-card" data-tool="compress">
-        <h3>Compress PDF</h3>
-        <p>Reduce the size of your PDF.</p>
-      </div>
-      <div class="tool-card" data-tool="convert">
-        <h3>Convert PDF</h3>
-        <p>Convert PDF to Word, Excel, etc.</p>
-      </div>
-    </div>
-  </section>
-
- 
 
   <footer>
     <p>&copy; 2023 ZeroPDF. All rights reserved.</p>
