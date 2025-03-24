@@ -1,60 +1,62 @@
-document.getElementById('splitButton').addEventListener('click', async () => {
-    const fileInput = document.getElementById('pdfInput');
-    const startPage = parseInt(document.getElementById('startPage').value);
-    const endPage = parseInt(document.getElementById('endPage').value);
+// src/js/main.js
 
-    // Check if a file is selected
-    if (!fileInput.files.length) {
-        alert("Please select a PDF file.");
-        return;
-    }
-
-    // Validate page range input
-    if (isNaN(startPage) || isNaN(endPage) || startPage < 1 || endPage < 1 || startPage > endPage) {
-        alert("Please enter a valid page range.");
-        return;
-    }
-
-    const file = fileInput.files[0];
-    const reader = new FileReader();
-    
-    reader.onload = async function (event) {
-        const uint8Array = new Uint8Array(event.target.result);
-
-        try {
-            // Use pdf.js to load the PDF document
-            const pdf = await pdfjsLib.getDocument({ data: uint8Array }).promise;
-            const totalPages = pdf.numPages;
-
-            if (startPage < 1 || endPage > totalPages) {
-                alert("Invalid page range.");
-                return;
-            }
-
-            const pdfDoc = await PDFLib.PDFDocument.create();
-            
-            // Copy the selected pages from the source PDF
-            for (let i = startPage; i <= endPage; i++) {
-                const [copiedPage] = await pdfDoc.copyPages(pdf, [i - 1]);
-                pdfDoc.addPage(copiedPage);
-            }
-
-            // Save the new PDF document
-            const pdfBytes = await pdfDoc.save();
-            const blob = new Blob([pdfBytes], { type: "application/pdf" });
-
-            // Create download link
-            const downloadLink = document.getElementById("downloadLink");
-            downloadLink.href = URL.createObjectURL(blob);
-            downloadLink.download = "split_pdf.pdf";
-            downloadLink.style.display = "block";
-            downloadLink.textContent = "Download Split PDF";
-
-        } catch (error) {
-            console.error("Error processing PDF:", error);
-            alert("An error occurred while processing the PDF.");
-        }
-    };
-
-    reader.readAsArrayBuffer(file);
+// File upload and tool selection logic
+document.getElementById('uploadBtn').addEventListener('click', () => {
+  document.getElementById('fileInput').click();
 });
+
+document.getElementById('fileInput').addEventListener('change', (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    alert(`File selected: ${file.name}`);
+    // Add logic to process the file
+  }
+});
+
+const toolCards = document.querySelectorAll('.tool-card');
+toolCards.forEach(card => {
+  card.addEventListener('click', () => {
+    const tool = card.getAttribute('data-tool');
+    alert(`Selected tool: ${tool}`);
+    // Add logic to handle the selected tool
+  });
+});
+
+// Three.js 3D animation logic
+import * as THREE from 'three';
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+const geometry = new THREE.BoxGeometry();
+const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+const cube = new THREE.Mesh(geometry, material);
+scene.add(cube);
+
+camera.position.z = 5;
+
+function animate() {
+  requestAnimationFrame(animate);
+  cube.rotation.x += 0.01;
+  cube.rotation.y += 0.01;
+  renderer.render(scene, camera);
+}
+
+animate();
+
+// PDF processing logic (API calls, etc.)
+async function processPDF(file, tool) {
+  const formData = new FormData();
+  formData.append('pdf', file);
+
+  const response = await fetch(`/api/${tool}`, {
+    method: 'POST',
+    body: formData,
+  });
+
+  const result = await response.json();
+  console.log(result);
+}
