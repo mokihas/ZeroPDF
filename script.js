@@ -19,3 +19,10 @@ toolCards.forEach(card => {
     // Add logic to handle the selected tool
   });
 });
+// Toggle Hamburger Menu
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('nav-links');
+
+hamburger.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+});
