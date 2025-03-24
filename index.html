@@ -1,26 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Split PDF - ZeroPDF</title>
-    <link rel="stylesheet" href="styles.css">
-    <!-- Include PDF.js Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
-    <!-- Include PDFLib Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZeroPDF - Your PDF Solution</title>
+  <link rel="stylesheet" href="src/css/styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Split PDF</h1>
-        <input type="file" id="pdfInput" accept="application/pdf">
-        <label for="startPage">Start Page:</label>
-        <input type="number" id="startPage" min="1">
-        <label for="endPage">End Page:</label>
-        <input type="number" id="endPage" min="1">
-        <button id="splitButton">Split PDF</button>
-        <a id="downloadLink" style="display: none;">Download Split PDF</a>
+  <header>
+    <div class="logo">ZeroPDF</div>
+    <nav>
+      <ul>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#tools">Tools</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Your All-in-One PDF Solution</h1>
+    <p>Split, Merge, Compress, Convert, and More!</p>
+    <div class="cta-buttons">
+      <button id="uploadBtn">Upload PDF</button>
+      <input type="file" id="fileInput" accept=".pdf" style="display: none;">
     </div>
-    <script src="split.js"></script>
+  </section>
+
+  <section id="tools" class="tools">
+    <h2>Tools</h2>
+    <div class="tool-grid">
+      <div class="tool-card" data-tool="split">
+        <h3>Split PDF</h3>
+        <p>Divide a PDF into multiple files.</p>
+      </div>
+      <div class="tool-card" data-tool="merge">
+        <h3>Merge PDF</h3>
+        <p>Combine multiple PDFs into one.</p>
+      </div>
+      <div class="tool-card" data-tool="compress">
+        <h3>Compress PDF</h3>
+        <p>Reduce the size of your PDF.</p>
+      </div>
+      <div class="tool-card" data-tool="convert">
+        <h3>Convert PDF</h3>
+        <p>Convert PDF to Word, Excel, etc.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2023 ZeroPDF. All rights reserved.</p>
+  </footer>
+
+  <script src="src/js/main.js"></script>
 </body>
 </html>
